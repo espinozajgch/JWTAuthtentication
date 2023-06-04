@@ -17,7 +17,11 @@ public class LoginController {
 	public User login(
 			@RequestParam("user") String username,
 			@RequestParam("password") String pass) {
-		
+
+		/**
+		 * En el ejemplo no se realiza la correcta validación del usuario
+		 */
+
 		String token = jwtAuthtenticationConfig.getJWTToken(username);
 		User user = new User();
 		user.setUser(username);
