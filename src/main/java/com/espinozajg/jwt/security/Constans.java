@@ -23,7 +23,7 @@ public class Constans {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-	private Key getSigningKey(String secret) {
+    public static Key getSigningKey(String secret) {
 		byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}

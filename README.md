@@ -6,6 +6,7 @@ API authentication with Spring Security and JWT
 - Spring Boot : 3.1.0
 - Spring Security : 6.1.0
 - JJWT : 0.11.5
+- Nimbus-jose-jwt : 9.31
 
 ### Explicación
 
@@ -24,3 +25,7 @@ La clase ***JWTAuthorizationFilter*** es un filtro de autorización de Spring qu
 La clase ***JWTAuthtenticationConfig*** genera un token JWT para un usuario autenticado utilizando una clave secreta, el nombre de usuario, las autoridades y otros atributos relevantes. El token generado puede ser utilizado para la autenticación y autorización en las solicitudes posteriores.
 
 Recuerda que la seguridad de los tokens JWT depende de la adecuada protección de la clave secreta, así como de otras medidas de seguridad en tu aplicación, como la validación adecuada del token en el lado del servidor y la protección contra ataques de falsificación de solicitudes entre sitios (CSRF), entre otros.
+
+### Adicional
+
+El método ***JwkGenerator()*** genera un JWK utilizando una clave secreta y lo convierte a formato JSON. El JWK resultante puede ser utilizado para la autenticación y la generación/validación de tokens JWT en una aplicación que implementa JSON Web Tokens (JWT). 

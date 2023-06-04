@@ -26,7 +26,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				replace(TOKEN_BEARER_PREFIX, "");
 
 		return Jwts.parserBuilder()
-				.setSigningKey(getSigningKeyB64(SUPER_SECRET_KEY))
+				.setSigningKey(getSigningKey(SUPER_SECRET_KEY))
 				.build()
 				.parseClaimsJws(jwtToken)
 				.getBody();
