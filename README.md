@@ -29,3 +29,29 @@ Recuerda que la seguridad de los tokens JWT depende de la adecuada protección d
 ### Adicional
 
 El método ***JwkGenerator()*** genera un JWK utilizando una clave secreta y lo convierte a formato JSON. El JWK resultante puede ser utilizado para la autenticación y la generación/validación de tokens JWT en una aplicación que implementa JSON Web Tokens (JWT). 
+
+-----------
+
+### Excluding the autoconfiguration class
+To prevent this user from being auto-configured, we can exclude the autoconfiguration class, which means Spring Security won't set up, and log, the default user.
+
+We can do this on our main application class:
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+
+@SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
+@Configuration
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+```
+
+Or via a properties file:
+```
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+```
