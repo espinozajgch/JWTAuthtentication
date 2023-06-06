@@ -8,6 +8,12 @@ API authentication with Spring Security and JWT
 - JJWT : 0.11.5
 - Nimbus-jose-jwt : 9.31
 
+### Objetivo
+
+- Habiliar la aunteticacion en la aplicacion
+- Generar un Token JWT
+- Validar el Token recibido
+
 ### Explicación
 
 La clase ***JWTAuthorizationFilter*** es un filtro de autorización de Spring que se encarga de validar y procesar el token JWT en cada solicitud entrante. Aquí tienes una explicación de cada método y su función:
