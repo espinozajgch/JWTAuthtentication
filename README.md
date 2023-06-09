@@ -6,7 +6,6 @@ API authentication with Spring Security and JWT
 - Spring Boot : 3.1.0
 - Spring Security : 6.1.0
 - JJWT : 0.11.5
-- Nimbus-jose-jwt : 9.31
 
 ### Objetivo
 
