@@ -32,10 +32,4 @@ public class LoginController {
 		
 	}
 
-	@GetMapping("/key")
-	public String getKey(){
-		return jwtAuthtenticationConfig.JwkGenerator();
-	}
-
-
 }

@@ -45,45 +45,4 @@ public class JWTAuthtenticationConfig {
         return "Bearer " + token;
     }
 
-    public String JwkGenerator(){
-        // Definir la clave secreta
-        byte[] sharedSecret = SUPER_SECRET_KEY.getBytes();
-
-        // Construir el objeto JWK
-        JWK jwk = new OctetSequenceKey.Builder(sharedSecret)
-                .algorithm(new Algorithm("HS512"))
-                .keyID("1")
-                .build();
-
-        // Convertir el objeto JWK a JSON
-        String jwkJson = jwk.toJSONObject().toString();
-
-        return jwkJson;
-    }
-
-
-    public void JwkGeneratorRSA() throws NoSuchAlgorithmException {
-        // Generar un par de claves RSA
-		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-		keyPairGenerator.initialize(2048);
-		KeyPair keyPair = keyPairGenerator.generateKeyPair();
-		RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-
-		// Construir el objeto JWK
-		JWK jwk = new RSAKey.Builder(publicKey)
-				.privateKey(privateKey)
-				.keyID("1")
-				.build();
-
-		// Convertir el objeto JWK a JSON
-		String jwkJson = jwk.toJSONObject().toString();
-
-		// Imprimir el JSON del JWK
-		System.out.println(jwkJson);
-
-    }
-    /**
-     */
-
 }

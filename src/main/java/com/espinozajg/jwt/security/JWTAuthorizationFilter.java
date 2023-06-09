@@ -20,7 +20,7 @@ import static com.espinozajg.jwt.security.Constans.*;
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-	private Claims validateToken(HttpServletRequest request) {
+	private Claims setSigningKey(HttpServletRequest request) {
 		String jwtToken = request.
 				getHeader(HEADER_AUTHORIZACION_KEY).
 				replace(TOKEN_BEARER_PREFIX, "");
@@ -32,22 +32,19 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				.getBody();
 	}
 
-	/**
-	 * Authentication method in Spring flow
-	 * 
-	 * @param claims
-	 */
-	private void setUpSpringAuthentication(Claims claims) {
+	private void setAuthentication(Claims claims) {
 
 		List<String> authorities = (List<String>) claims.get("authorities");
 
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
+		UsernamePasswordAuthenticationToken auth =
+				new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
 				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 	}
 
-	private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
+	private boolean isJWTValid(HttpServletRequest request, HttpServletResponse res) {
 		String authenticationHeader = request.getHeader(HEADER_AUTHORIZACION_KEY);
 		if (authenticationHeader == null || !authenticationHeader.startsWith(TOKEN_BEARER_PREFIX))
 			return false;
@@ -57,10 +54,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		try {
-			if (checkJWTToken(request, response)) {
-				Claims claims = validateToken(request);
+			if (isJWTValid(request, response)) {
+				Claims claims = setSigningKey(request);
 				if (claims.get("authorities") != null) {
-					setUpSpringAuthentication(claims);
+					setAuthentication(claims);
 				} else {
 					SecurityContextHolder.clearContext();
 				}

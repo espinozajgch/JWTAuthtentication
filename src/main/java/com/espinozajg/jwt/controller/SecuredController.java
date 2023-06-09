@@ -9,6 +9,6 @@ public class SecuredController {
 
 	@RequestMapping("greetings")
 	public String greetings(@RequestParam(value="name", defaultValue="World") String name) {
-		return "Hello "+name+"!";
+		return "Hello {" + name + "}";
 	}
 }
