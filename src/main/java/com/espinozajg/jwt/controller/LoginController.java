@@ -3,7 +3,6 @@ package com.espinozajg.jwt.controller;
 import com.espinozajg.jwt.dto.User;
 import com.espinozajg.jwt.security.JWTAuthtenticationConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,18 +16,14 @@ public class LoginController {
 	@PostMapping("login")
 	public User login(
 			@RequestParam("user") String username,
-			@RequestParam("password") String pass) {
+			@RequestParam("encryptedPass") String encryptedPass) {
 
 		/**
 		 * En el ejemplo no se realiza la correcta validación del usuario
 		 */
 
 		String token = jwtAuthtenticationConfig.getJWTToken(username);
-		User user = new User();
-		user.setUser(username);
-		user.setPass(pass);
-		user.setToken(token);		
-		return user;
+		return new User(username, encryptedPass,token);
 		
 	}
 
